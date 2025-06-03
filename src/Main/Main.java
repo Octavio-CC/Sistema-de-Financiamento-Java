@@ -1,5 +1,8 @@
 package Main;
 
+import Modelo.Financiamento;
+import Util.interfaceUsuario;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -9,5 +12,6 @@ public class Main {
         double valorImovel = interfaceUsuario.pedirValorImovel();
 
         Financiamento novoFinanciamento = new Financiamento(valorImovel, prazoFinanciamentoEmAnos, taxaJuros);
+        novoFinanciamento.mostrarDadosFinanciamento();
     }
 }
