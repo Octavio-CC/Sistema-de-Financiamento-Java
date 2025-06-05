@@ -42,7 +42,6 @@ public class Financiamento {
         System.out.printf("Taxa de Juros Anual: %.2f%%\n", this.taxaJurosAnual);
         System.out.printf("Pagamento Mensal Aproximado: R$ %.2f\n", this.calcularPagamentoMensal());
         System.out.printf("Total a Pagar ao final do financiamento: R$ %.2f\n", this.calcularTotalPagamento());
-
     }
 }
 
