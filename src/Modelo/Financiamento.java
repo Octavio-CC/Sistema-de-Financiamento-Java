@@ -1,50 +1,47 @@
 package Modelo;
 
-public class Financiamento {
+import java.io.Serializable;
 
-    // Atributos
+public abstract class Financiamento implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private double valorImovel;
     private int prazoFinanciamento;
     private double taxaJurosAnual;
 
-    // Getter
+    public Financiamento(double valorImovel, int prazoFinanciamento, double taxaJurosAnual) {
+        this.valorImovel = valorImovel;
+        this.prazoFinanciamento = prazoFinanciamento;
+        this.taxaJurosAnual = taxaJurosAnual / 100.0; // de % para decimal
+    }
+
     public double getValorImovel() {
-        return this.valorImovel;
+        return valorImovel;
     }
 
     public int getPrazoFinanciamento() {
-        return this.prazoFinanciamento;
+        return prazoFinanciamento;
     }
 
     public double getTaxaJurosAnual() {
-        return this.taxaJurosAnual;
+        return taxaJurosAnual;
     }
 
-    // Construtor
-    public Financiamento(double valorDesejadoImovel, int prazoFinanciamentoAnos, double taxaJurosAnual) {
-        this.valorImovel = valorDesejadoImovel;
-        this.prazoFinanciamento = prazoFinanciamentoAnos;
-        this.taxaJurosAnual = taxaJurosAnual / 100.0; // Converter porcentagem para decimal
-    }
-
-    // Métodos
-    public double calcularPagamentoMensal() {
-        double taxaMensal = this.taxaJurosAnual / 12;
-        int meses = this.prazoFinanciamento * 12;
-
-        return (this.valorImovel / meses) * (1 + taxaMensal);
-    }
+    public abstract double calcularPagamentoMensal();
 
     public double calcularTotalPagamento() {
-        return this.calcularPagamentoMensal() * this.prazoFinanciamento * 12; // Multiplicar por 12 meses
+        return calcularPagamentoMensal() * prazoFinanciamento * 12;
     }
 
     public void mostrarDadosFinanciamento() {
         System.out.println("\n=== Dados do Financiamento ===");
-        System.out.printf("Valor do Imóvel: R$ %.2f\n", this.valorImovel);
-        System.out.printf("Prazo: %d anos\n", this.prazoFinanciamento);
-        System.out.printf("Taxa de Juros Anual: %.2f%%\n", this.taxaJurosAnual * 100); // Exibir como porcentagem
-        System.out.printf("Pagamento Mensal Aproximado: R$ %.2f\n", this.calcularPagamentoMensal());
-        System.out.printf("Total a Pagar ao final do financiamento: R$ %.2f\n", this.calcularTotalPagamento());
+        System.out.printf("Valor do Imóvel: R$ %.2f\n", valorImovel);
+        System.out.printf("Prazo: %d anos\n", prazoFinanciamento);
+        System.out.printf("Taxa de Juros Anual: %.2f%%\n", taxaJurosAnual * 100);
+        System.out.printf("Pagamento Mensal: R$ %.2f\n", calcularPagamentoMensal());
+        System.out.printf("Total a pagar: R$ %.2f\n", calcularTotalPagamento());
     }
+
+    // Método para formatar os dados para o arquivo de texto
+    public abstract String toTextFileString();
 }
